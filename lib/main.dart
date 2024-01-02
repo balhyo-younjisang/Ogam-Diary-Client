@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ogam_diary/providers/user_provider.dart';
+import 'package:ogam_diary/providers/join_provider.dart';
+import 'package:ogam_diary/providers/login_provider.dart';
 import 'package:ogam_diary/routes.dart';
 import 'package:ogam_diary/providers/auth.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,8 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<AuthService>(create: (_) => AuthService()),
-      ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider())
+      ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
+      ChangeNotifierProvider<JoinProvider>(create: (_) => JoinProvider())
     ],
     child: const MyApp(),
   ));

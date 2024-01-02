@@ -16,7 +16,7 @@ class PageRouter {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => LoginPage());
       case joinRoute:
-        return MaterialPageRoute(builder: (_) => const JoinPage());
+        return MaterialPageRoute(builder: (_) => JoinPage());
     }
 
     return MaterialPageRoute(builder: (_) => const HomePage());

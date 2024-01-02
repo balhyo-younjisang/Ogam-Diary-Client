@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TextFormFieldWidget {
   Widget renderTextFormField(
       {required String label,
-      required FormFieldSetter onSaved,
+      required FormFieldSetter onChanged,
       required FormFieldValidator validator,
       bool? isPassword,
       TextInputType? keyboardType}) {
@@ -13,7 +13,7 @@ class TextFormFieldWidget {
           labelText: label,
           labelStyle: const TextStyle(fontFamily: "Gugi-Regular"),
           errorStyle: const TextStyle(fontFamily: "Gugi-Regular")),
-      onSaved: onSaved,
+      onChanged: onChanged,
       validator: validator,
       obscureText: isPassword != null ? true : false,
       keyboardType: keyboardType,

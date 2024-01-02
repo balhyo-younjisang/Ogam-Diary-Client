@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ogam_diary/providers/user_provider.dart';
+import 'package:ogam_diary/providers/login_provider.dart';
 import 'package:ogam_diary/utils/hexColor.dart';
 import 'package:ogam_diary/widgets/button_widget.dart';
 import 'package:ogam_diary/widgets/logoText_widget.dart';
@@ -13,6 +13,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LoginProvider loginProvider = Provider.of<LoginProvider>(context);
+
     return Scaffold(
         body: Form(
       key: formKey,
@@ -28,8 +30,8 @@ class LoginPage extends StatelessWidget {
                   TextFormFieldWidget().renderTextFormField(
                       label: "이메일",
                       keyboardType: TextInputType.emailAddress,
-                      onSaved: (val) {
-                        context.read<UserProvider>().updateEmail(val);
+                      onChanged: (val) {
+                        loginProvider.updateEmail(val);
                       },
                       validator: (val) {
                         if (val.isEmpty) {
@@ -51,8 +53,8 @@ class LoginPage extends StatelessWidget {
                   TextFormFieldWidget().renderTextFormField(
                       label: "비밀번호",
                       isPassword: true,
-                      onSaved: (val) {
-                        context.read<UserProvider>().updatePassword(val);
+                      onChanged: (val) {
+                        loginProvider.updatePassword(val);
                       },
                       validator: (val) {
                         if (val.isEmpty) {
@@ -67,7 +69,11 @@ class LoginPage extends StatelessWidget {
                   // margin end
                   ButtonWidget().renderAuthButton(
                       label: "로그인",
-                      onTapHandler: () {
+                      onTapHandler: () async {
+                        await loginProvider.login();
+
+                        if (!context.mounted) return;
+                        Navigator.pushNamed(context, "home");
                         return;
                       }),
                   InkWell(
