@@ -10,7 +10,7 @@ class ButtonWidget {
         borderRadius: BorderRadius.circular(10.0),
         splashColor: Colors.blue.withOpacity(0.4),
         child: Ink(
-          width: Get.width,
+          width: Get.width - 10,
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           decoration: BoxDecoration(
               color: HexColor("#3FEE9F"),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ogam_diary/providers/home_provider.dart';
+import 'package:ogam_diary/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
-      body: Stack(children: [
+      body: Column(children: [
         TableCalendar(
           locale: "ko_KR",
           focusedDay: homeProvider.focusedDay,
@@ -24,7 +25,16 @@ class HomePage extends StatelessWidget {
             homeProvider.updateFocusedDay(focusedDay);
             homeProvider.updateSelectedDay(selectedDay);
           },
-        )
+          onPageChanged: (focusedDay) {
+            homeProvider.updateFocusedDay(focusedDay);
+          },
+          calendarStyle: const CalendarStyle(outsideDaysVisible: false),
+        ),
+        ButtonWidget().renderAuthButton(
+            onTapHandler: () {
+              Navigator.pushNamed(context, "write");
+            },
+            label: "감정 기록하기")
       ]),
     );
   }
