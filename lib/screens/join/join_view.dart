@@ -31,9 +31,11 @@ class JoinPage extends StatelessWidget {
                       label: "이메일",
                       keyboardType: TextInputType.emailAddress,
                       onChanged: (val) {
+                        // 인풋값이 변경될 때마다 프로바이더의 이메일 값 업데이트
                         joinProvider.updateEmail(val);
                       },
                       validator: (val) {
+                        // 입력된 이메일 검사
                         if (val.isEmpty) {
                           return '이메일은 필수사항입니다.';
                         }
@@ -54,9 +56,11 @@ class JoinPage extends StatelessWidget {
                       label: "비밀번호",
                       isPassword: true,
                       onChanged: (val) {
+                        // 인풋값이 변경될 때마다 프로바이더의 비밀번호 값 업데이트
                         joinProvider.updatePassword(val);
                       },
                       validator: (val) {
+                        // 입력된 비밀번호 검사
                         if (val.isEmpty) {
                           return '비밀번호는 필수사항입니다.';
                         }
@@ -70,9 +74,11 @@ class JoinPage extends StatelessWidget {
                       label: "비밀번호 확인",
                       isPassword: true,
                       onChanged: (val) {
+                        // 인풋값이 변경될 때마다 프로바이더의 비밀번호 확인 값 업데이트
                         joinProvider.updateConfirmPassword(val);
                       },
                       validator: (val) {
+                        // 입력된 비밀번호 확인 검사
                         if (val != joinProvider.password) {
                           return '비밀번호가 일치하지 않습니다.';
                         }
@@ -90,16 +96,17 @@ class JoinPage extends StatelessWidget {
                       onTapHandler: () async {
                         await joinProvider.join();
 
-                        if (!context.mounted) return;
+                        if (!context.mounted) return; // 비동기 작업이 끝나지 않았다면
                         Navigator.pushNamed(context, "login");
                         return;
                       }),
+                  // 페이지 이동
                   InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, "join");
+                        Navigator.pushNamed(context, "login");
                       },
                       child: Text(
-                        "오감일기가 처음이 아니예요!",
+                        "오감일기를 사용해본 적이 있나요?",
                         style: TextStyle(
                             color: HexColor("#8338ec"),
                             fontFamily: "Gugi-Regular"),

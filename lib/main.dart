@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:ogam_diary/providers/home_provider.dart';
 import 'package:ogam_diary/providers/join_provider.dart';
 import 'package:ogam_diary/providers/login_provider.dart';
 import 'package:ogam_diary/routes.dart';
@@ -9,14 +11,15 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // main 함수에서 async 사용
 
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider<AuthService>(create: (_) => AuthService()),
-      ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
-      ChangeNotifierProvider<JoinProvider>(create: (_) => JoinProvider())
-    ],
-    child: const MyApp(),
-  ));
+  initializeDateFormatting().then((_) => runApp(MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AuthService>(create: (_) => AuthService()),
+          ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
+          ChangeNotifierProvider<JoinProvider>(create: (_) => JoinProvider()),
+          ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider())
+        ],
+        child: const MyApp(),
+      )));
 }
 
 class MyApp extends StatelessWidget {

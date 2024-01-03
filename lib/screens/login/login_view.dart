@@ -13,7 +13,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LoginProvider loginProvider = Provider.of<LoginProvider>(context);
+    LoginProvider loginProvider =
+        Provider.of<LoginProvider>(context); // 로그인 프로바이더 호출
 
     return Scaffold(
         body: Form(
@@ -31,9 +32,11 @@ class LoginPage extends StatelessWidget {
                       label: "이메일",
                       keyboardType: TextInputType.emailAddress,
                       onChanged: (val) {
+                        // 인풋값이 변경될 때마다 프로바이더의 이메일 값 업데이트
                         loginProvider.updateEmail(val);
                       },
                       validator: (val) {
+                        // 입력된 이메일 검사
                         if (val.isEmpty) {
                           return '이메일은 필수사항입니다.';
                         }
@@ -54,9 +57,11 @@ class LoginPage extends StatelessWidget {
                       label: "비밀번호",
                       isPassword: true,
                       onChanged: (val) {
+                        // 인풋값이 변경될 때마다 프로바이더의 비밀번호 값 업데이트
                         loginProvider.updatePassword(val);
                       },
                       validator: (val) {
+                        // 입력된 비밀번호 검사
                         if (val.isEmpty) {
                           return '비밀번호는 필수사항입니다.';
                         }
@@ -72,13 +77,13 @@ class LoginPage extends StatelessWidget {
                       onTapHandler: () async {
                         await loginProvider.login();
 
-                        if (!context.mounted) return;
+                        if (!context.mounted) return; // 비동기 작업이 끝나지 않았다면
                         Navigator.pushNamed(context, "home");
                         return;
                       }),
                   InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, "join");
+                        Navigator.pushNamed(context, "join"); // 페이지 이동
                       },
                       child: Text(
                         "오감일기가 처음이라면?",
