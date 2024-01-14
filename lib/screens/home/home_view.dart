@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ogam_diary/args/DiaryArgument.dart';
+import 'package:ogam_diary/args/diaryArgument.dart';
 import 'package:ogam_diary/providers/home_provider.dart';
 import 'package:ogam_diary/widgets/button_widget.dart';
 import 'package:provider/provider.dart';

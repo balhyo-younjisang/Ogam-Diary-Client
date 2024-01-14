@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ogam_diary/args/DiaryArgument.dart';
+import 'package:ogam_diary/args/diaryArgument.dart';
 
 class WritePage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
-
   WritePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final DiaryArgument diaryArgument =
-        ModalRoute.of(context)!.settings.arguments;
+    final args = ModalRoute.of(context)!.settings.arguments as DiaryArgument;
 
     return Scaffold(
       appBar: AppBar(
@@ -17,7 +15,7 @@ class WritePage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => {Navigator.pushNamed(context, "home")},
         ),
-        title: Text(diaryArgument.focusedDay as String),
+        title: Text(args.focusedDay.toString()),
         actions: [
           IconButton(
               onPressed: () => {},
