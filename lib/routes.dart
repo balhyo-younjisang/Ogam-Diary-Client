@@ -22,7 +22,7 @@ class PageRouter {
       case joinRoute:
         return MaterialPageRoute(builder: (_) => JoinPage());
       case writeRoute:
-        return MaterialPageRoute(builder: (_) => const WritePage());
+        return MaterialPageRoute(builder: (_) => WritePage());
       case readRoute:
         return MaterialPageRoute(builder: (_) => const ReadPage());
     }

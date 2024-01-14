@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ogam_diary/args/DiaryArgument.dart';
 import 'package:ogam_diary/providers/home_provider.dart';
 import 'package:ogam_diary/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
@@ -6,13 +7,15 @@ import 'package:table_calendar/table_calendar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  static CalendarFormat format = CalendarFormat.twoWeeks;
 
   @override
   Widget build(BuildContext context) {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context);
 
     return Scaffold(
-      body: Column(children: [
+        body: SafeArea(
+      child: Column(children: [
         TableCalendar(
           locale: "ko_KR",
           focusedDay: homeProvider.focusedDay,
@@ -28,14 +31,26 @@ class HomePage extends StatelessWidget {
           onPageChanged: (focusedDay) {
             homeProvider.updateFocusedDay(focusedDay);
           },
-          calendarStyle: const CalendarStyle(outsideDaysVisible: false),
+          calendarFormat: format,
+          headerStyle: const HeaderStyle(
+            titleCentered: true,
+            formatButtonVisible: false,
+          ),
+          calendarStyle: const CalendarStyle(
+              outsideDaysVisible: false,
+              tablePadding: EdgeInsets.all(8.0),
+              weekendTextStyle: TextStyle(fontSize: 14),
+              defaultTextStyle: TextStyle(fontSize: 14),
+              selectedTextStyle: TextStyle(fontSize: 14, color: Colors.white70),
+              todayTextStyle: TextStyle(fontSize: 14, color: Colors.white70)),
         ),
         ButtonWidget().renderAuthButton(
             onTapHandler: () {
-              Navigator.pushNamed(context, "write");
+              Navigator.pushNamed(context, "write",
+                  arguments: DiaryArgument(homeProvider.focusedDay));
             },
             label: "감정 기록하기")
       ]),
-    );
+    ));
   }
 }

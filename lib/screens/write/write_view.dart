@@ -1,10 +1,39 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:ogam_diary/args/DiaryArgument.dart';
 
 class WritePage extends StatelessWidget {
-  const WritePage({super.key});
+  final formKey = GlobalKey<FormState>();
+
+  WritePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Text("Hi");
+    final DiaryArgument diaryArgument =
+        ModalRoute.of(context)!.settings.arguments;
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => {Navigator.pushNamed(context, "home")},
+        ),
+        title: Text(diaryArgument.focusedDay as String),
+        actions: [
+          IconButton(
+              onPressed: () => {},
+              icon: const Icon(Icons.help_outline_outlined))
+        ],
+      ),
+      body: SafeArea(
+        child: Form(
+            key: formKey,
+            child: const Padding(
+              padding: EdgeInsets.all(6),
+              child: Column(
+                children: [],
+              ),
+            )),
+      ),
+    );
   }
 }
