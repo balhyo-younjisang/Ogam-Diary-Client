@@ -33,9 +33,10 @@ class HomePage extends StatelessWidget {
           },
           calendarFormat: format,
           headerStyle: const HeaderStyle(
-            titleCentered: true,
-            formatButtonVisible: false,
-          ),
+              titleCentered: true,
+              formatButtonVisible: false,
+              titleTextStyle:
+                  TextStyle(fontFamily: "Gugi-Regular", fontSize: 16)),
           calendarStyle: const CalendarStyle(
               outsideDaysVisible: false,
               tablePadding: EdgeInsets.all(8.0),
