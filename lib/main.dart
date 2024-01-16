@@ -4,6 +4,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:ogam_diary/providers/home_provider.dart';
 import 'package:ogam_diary/providers/join_provider.dart';
 import 'package:ogam_diary/providers/login_provider.dart';
+import 'package:ogam_diary/providers/write_provider.dart';
 import 'package:ogam_diary/routes.dart';
 import 'package:ogam_diary/providers/auth.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,8 @@ void main() async {
           ChangeNotifierProvider<AuthService>(create: (_) => AuthService()),
           ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
           ChangeNotifierProvider<JoinProvider>(create: (_) => JoinProvider()),
-          ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider())
+          ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
+          ChangeNotifierProvider<WriteProvder>(create: (_) => WriteProvder())
         ],
         child: const MyApp(),
       )));
