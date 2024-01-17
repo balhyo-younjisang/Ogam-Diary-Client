@@ -121,9 +121,9 @@ class WriteDetailsPage extends StatelessWidget {
                         ),
                         ButtonWidget().renderAuthButton(
                             onTapHandler: () {
-                              Navigator.pushNamed(context, "writeDetails");
+                              Navigator.pushNamed(context, "home");
                             },
-                            label: "다음 페이지로")
+                            label: "기록하기")
                       ]))
                 ],
               ),

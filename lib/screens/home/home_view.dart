@@ -27,6 +27,7 @@ class HomePage extends StatelessWidget {
           onDaySelected: (selectedDay, focusedDay) {
             homeProvider.updateFocusedDay(focusedDay);
             homeProvider.updateSelectedDay(selectedDay);
+            homeProvider.getDiaryList(selectedDay);
           },
           onPageChanged: (focusedDay) {
             homeProvider.updateFocusedDay(focusedDay);
@@ -50,7 +51,25 @@ class HomePage extends StatelessWidget {
               Navigator.pushNamed(context, "write",
                   arguments: DiaryArgument(homeProvider.focusedDay));
             },
-            label: "감정 기록하기")
+            label: "감정 기록하기"),
+        Flexible(
+            fit: FlexFit.tight,
+            child: SizedBox(
+                height: 300,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.all(8),
+                  itemCount: homeProvider.diaryList?.length ?? 0,
+                  itemBuilder: (BuildContext context, int idx) {
+                    return Container(
+                      height: 50,
+                      color: Colors.amber,
+                      child: Center(
+                        child: Text('${homeProvider.diaryList?[idx]}'),
+                      ),
+                    );
+                  },
+                )))
       ]),
     ));
   }

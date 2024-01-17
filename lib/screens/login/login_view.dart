@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ogam_diary/providers/login_provider.dart';
 import 'package:ogam_diary/utils/hexColor.dart';
 import 'package:ogam_diary/widgets/button_widget.dart';
@@ -75,11 +76,25 @@ class LoginPage extends StatelessWidget {
                   ButtonWidget().renderAuthButton(
                       label: "로그인",
                       onTapHandler: () async {
-                        await loginProvider.login();
+                        if (loginProvider.email.isEmpty ||
+                            loginProvider.password.isEmpty) {
+                          Get.snackbar("입력 오류!", "입력칸을 모두 채워주세요!",
+                              icon: const Icon(Icons.email),
+                              snackStyle: SnackStyle.FLOATING);
+                          return;
+                        }
+
+                        dynamic response = await loginProvider.login();
 
                         if (!context.mounted) return; // 비동기 작업이 끝나지 않았다면
-                        Navigator.pushNamed(context, "home");
-                        return;
+
+                        if (response == null || response.isSuccess == false) {
+                          Get.snackbar("로그인 실패", "로그인에 실패했어요!",
+                              icon: const Icon(Icons.warning),
+                              snackStyle: SnackStyle.FLOATING);
+                        } else {
+                          Navigator.pushNamed(context, "home");
+                        }
                       }),
                   InkWell(
                       onTap: () {
