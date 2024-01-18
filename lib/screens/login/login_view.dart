@@ -89,7 +89,7 @@ class LoginPage extends StatelessWidget {
                         if (!context.mounted) return; // 비동기 작업이 끝나지 않았다면
 
                         if (response == null) {
-                          Get.snackbar("로그인 실패", "로그인에 실패했어요!",
+                          Get.snackbar("로그인 실패", "이메일과 비밀번호를 확인해주세요",
                               icon: const Icon(Icons.warning),
                               snackStyle: SnackStyle.GROUNDED);
                         } else {
