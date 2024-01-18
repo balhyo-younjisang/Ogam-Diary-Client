@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import "package:http/http.dart" as http;
+import 'package:ogam_diary/models/user.dart';
 
 class JoinProvider with ChangeNotifier {
   String _email = "";
@@ -24,5 +28,24 @@ class JoinProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> join() async {}
+  join() async {
+    try {
+      const String url =
+          "https://port-0-ogam-diary-server-3wh3o2blrgaaav5.sel5.cloudtype.app/api/v1";
+
+      final request = Uri.parse("$url/user/join");
+      final response = await http.post(request, headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }, body: {
+        "email": _email,
+        "password": _password,
+        "confirmPassword": _confirmPassword
+      });
+      final jsonData = jsonDecode(response.body);
+
+      return User.fromJson(jsonData);
+    } catch (e) {
+      return null;
+    }
+  }
 }

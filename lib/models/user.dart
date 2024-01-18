@@ -1,7 +1,9 @@
 class User {
-  int? userId;
-  String? email;
-  String? token;
+  final String email;
 
-  User({this.userId, this.email, this.token});
+  User({required this.email});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(email: json['email']);
+  }
 }

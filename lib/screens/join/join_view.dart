@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ogam_diary/providers/join_provider.dart';
 import 'package:ogam_diary/utils/hexColor.dart';
 import 'package:ogam_diary/widgets/button_widget.dart';
@@ -94,11 +95,39 @@ class JoinPage extends StatelessWidget {
                   ButtonWidget().renderAuthButton(
                       label: "회원가입",
                       onTapHandler: () async {
-                        await joinProvider.join();
+                        if (joinProvider.email.isEmpty ||
+                            joinProvider.password.isEmpty ||
+                            joinProvider.confirmPassword.isEmpty) {
+                          Get.snackbar("입력 오류!", "입력칸을 모두 채워주세요!",
+                              icon: const Icon(Icons.email),
+                              snackStyle: SnackStyle.GROUNDED);
+                          return;
+                        }
+                        if (joinProvider.password
+                                .compareTo(joinProvider.confirmPassword) !=
+                            0) {
+                          Get.snackbar("비밀번호 불일치", "비밀번호가 일치하지 않아요",
+                              icon: const Icon(Icons.password),
+                              snackStyle: SnackStyle.GROUNDED);
+                          return;
+                        } else if (joinProvider.password.length < 8) {
+                          Get.snackbar("비밀번호 오류", "비밀번호가 너무 짧아요",
+                              icon: const Icon(Icons.password),
+                              snackStyle: SnackStyle.GROUNDED);
+                          return;
+                        }
+
+                        dynamic response = await joinProvider.join();
 
                         if (!context.mounted) return; // 비동기 작업이 끝나지 않았다면
-                        Navigator.pushNamed(context, "login");
-                        return;
+
+                        if (response == null) {
+                          Get.snackbar("회원가입 실패", "회원가입에 실패했어요!",
+                              icon: const Icon(Icons.warning),
+                              snackStyle: SnackStyle.GROUNDED);
+                        } else {
+                          Navigator.pushNamed(context, "login");
+                        }
                       }),
                   // 페이지 이동
                   InkWell(

@@ -80,7 +80,7 @@ class LoginPage extends StatelessWidget {
                             loginProvider.password.isEmpty) {
                           Get.snackbar("입력 오류!", "입력칸을 모두 채워주세요!",
                               icon: const Icon(Icons.email),
-                              snackStyle: SnackStyle.FLOATING);
+                              snackStyle: SnackStyle.GROUNDED);
                           return;
                         }
 
@@ -88,10 +88,10 @@ class LoginPage extends StatelessWidget {
 
                         if (!context.mounted) return; // 비동기 작업이 끝나지 않았다면
 
-                        if (response == null || response.isSuccess == false) {
+                        if (response == null) {
                           Get.snackbar("로그인 실패", "로그인에 실패했어요!",
                               icon: const Icon(Icons.warning),
-                              snackStyle: SnackStyle.FLOATING);
+                              snackStyle: SnackStyle.GROUNDED);
                         } else {
                           Navigator.pushNamed(context, "home");
                         }

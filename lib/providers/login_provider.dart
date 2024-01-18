@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:ogam_diary/models/diary.dart';
+import 'package:ogam_diary/models/user.dart';
 
 class LoginProvider with ChangeNotifier {
   String _email = "";
@@ -31,7 +31,7 @@ class LoginProvider with ChangeNotifier {
           headers: {"Content-Type": "application/x-www-form-urlencoded"},
           body: {"email": _email, "password": _password});
 
-      return Diary.fromJson(jsonDecode(response.body));
+      return User.fromJson(jsonDecode(response.body));
     } catch (e) {
       return null;
     }
