@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ogam_diary/providers/diary_provider.dart';
 import 'package:ogam_diary/providers/write_provider.dart';
 import 'package:ogam_diary/utils/diary_argument.dart';
 import 'package:ogam_diary/widgets/bottomSheet_widget.dart';
 import 'package:ogam_diary/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WriteDetailsPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
@@ -14,6 +16,7 @@ class WriteDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WriteProvder writeProvder = Provider.of<WriteProvder>(context);
+    DiaryProvider diaryProvider = Provider.of<DiaryProvider>(context);
     TextEditingController reactionArea = TextEditingController();
     TextEditingController actionArea = TextEditingController();
     final args = ModalRoute.of(context)!.settings.arguments as DiaryArgument;
@@ -120,8 +123,22 @@ class WriteDetailsPage extends StatelessWidget {
                           height: 8,
                         ),
                         ButtonWidget().renderAuthButton(
-                            onTapHandler: () {
-                              Navigator.pushNamed(context, "home");
+                            onTapHandler: () async {
+                              diaryProvider
+                                  .updateEmotion(writeProvder.selectedEmotion);
+                              diaryProvider.updateBodyAction(reactionArea.text);
+                              diaryProvider.updateAction(actionArea.text);
+
+                              reactionArea.dispose();
+                              actionArea.dispose();
+
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              final email = prefs.getString("email");
+
+                              if (!context.mounted) return;
+
+                              await Navigator.pushNamed(context, "home");
                             },
                             label: "기록하기")
                       ]))

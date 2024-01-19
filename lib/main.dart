@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:ogam_diary/providers/diary_provider.dart';
 import 'package:ogam_diary/providers/home_provider.dart';
 import 'package:ogam_diary/providers/join_provider.dart';
 import 'package:ogam_diary/providers/login_provider.dart';
@@ -18,6 +19,7 @@ void main() async {
           ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
           ChangeNotifierProvider<JoinProvider>(create: (_) => JoinProvider()),
           ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
+          ChangeNotifierProvider<DiaryProvider>(create: (_) => DiaryProvider()),
           ChangeNotifierProvider<WriteProvder>(create: (_) => WriteProvder())
         ],
         child: const MyApp(),

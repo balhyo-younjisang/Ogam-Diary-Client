@@ -6,6 +6,7 @@ import 'package:ogam_diary/widgets/button_widget.dart';
 import 'package:ogam_diary/widgets/logoText_widget.dart';
 import 'package:ogam_diary/widgets/textFormField_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
@@ -93,6 +94,10 @@ class LoginPage extends StatelessWidget {
                               icon: const Icon(Icons.warning),
                               snackStyle: SnackStyle.GROUNDED);
                         } else {
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setString("email", response.email);
+
+                          if (!context.mounted) return;
                           Navigator.pushNamed(context, "home");
                         }
                       }),
