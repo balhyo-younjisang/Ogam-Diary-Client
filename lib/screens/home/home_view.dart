@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ogam_diary/models/diary.dart';
 import 'package:ogam_diary/utils/diary_argument.dart';
 import 'package:ogam_diary/providers/home_provider.dart';
+import 'package:ogam_diary/utils/read_diary_arg.dart';
 import 'package:ogam_diary/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -18,17 +19,19 @@ class _HomePageState extends State<HomePage> {
   List<Diary> diaryList = [];
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     Future.delayed(Duration.zero, () async {
-      HomeProvider homeProvider = Provider.of<HomeProvider>(context);
+      HomeProvider homeProvider =
+          Provider.of<HomeProvider>(context, listen: false);
       diaryList = await homeProvider.getDiaryList(homeProvider.focusedDay);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    HomeProvider homeProvider = Provider.of<HomeProvider>(context);
+    HomeProvider homeProvider =
+        Provider.of<HomeProvider>(context, listen: false);
 
     return Scaffold(
         body: SafeArea(
@@ -81,13 +84,19 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
                   itemCount: diaryList.length,
                   itemBuilder: (BuildContext context, int idx) {
-                    return Container(
-                      height: 50,
-                      color: Colors.amber,
-                      child: Center(
-                        child: Text(diaryList[idx].situation),
-                      ),
-                    );
+                    return InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, "read",
+                              arguments: ReadDiaryArgument(diaryList[idx].id));
+                        },
+                        child: Container(
+                          height: 50,
+                          margin: const EdgeInsets.all(10),
+                          color: const Color.fromARGB(255, 204, 204, 204),
+                          child: Center(
+                            child: Text(diaryList[idx].situation),
+                          ),
+                        ));
                   },
                 )))
       ]),

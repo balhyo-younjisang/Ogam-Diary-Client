@@ -30,7 +30,8 @@ class PageRouter {
         return MaterialPageRoute(
             builder: (_) => WriteDetailsPage(), settings: settings);
       case readRoute:
-        return MaterialPageRoute(builder: (_) => const ReadPage());
+        return MaterialPageRoute(
+            builder: (_) => const ReadPage(), settings: settings);
     }
 
     return MaterialPageRoute(builder: (_) => const HomePage());
