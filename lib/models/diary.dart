@@ -16,11 +16,11 @@ class Diary {
 
   factory Diary.fromJson(Map<String, dynamic> json) {
     return Diary(
-        situation: json['data']['situation'],
-        reaction: json['data']['reaction'],
-        emotion: json['data']['emotion'],
-        think: json['data']['think'],
-        action: json['data']['action'],
-        date: json['data']['date']);
+        situation: json['situation'],
+        reaction: json['reaction'],
+        emotion: json['emotion'],
+        think: json['think'],
+        action: json['action'],
+        date: json['date']);
   }
 }

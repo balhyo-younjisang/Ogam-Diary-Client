@@ -57,18 +57,19 @@ class WritePage extends StatelessWidget {
                           height: 4,
                         ),
                         TextField(
-                          style: const TextStyle(
-                              fontSize: 12, fontFamily: "Gugi-Regular"),
-                          controller: situationArea,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 4,
-                          decoration: const InputDecoration(
-                              hintText: "상황을 입력해주세요",
-                              hintStyle: TextStyle(fontFamily: "Gugi-Regular"),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1, color: Colors.black12))),
-                        ),
+                            autofocus: true,
+                            style: const TextStyle(
+                                fontSize: 12, fontFamily: "Gugi-Regular"),
+                            controller: situationArea,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 4,
+                            decoration: const InputDecoration(
+                                hintText: "상황을 입력해주세요",
+                                hintStyle:
+                                    TextStyle(fontFamily: "Gugi-Regular"),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.black12)))),
                         const SizedBox(
                           height: 10,
                         ),
@@ -97,8 +98,8 @@ class WritePage extends StatelessWidget {
                         ),
                         ButtonWidget().renderAuthButton(
                             onTapHandler: () {
+                              diaryProvider.updateThink(thinkArea.text);
                               diaryProvider.updateSituation(situationArea.text);
-                              diaryProvider.updateEmotion(thinkArea.text);
 
                               thinkArea.dispose();
                               situationArea.dispose();

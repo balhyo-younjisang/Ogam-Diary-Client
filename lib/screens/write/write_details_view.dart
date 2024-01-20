@@ -95,6 +95,13 @@ class WriteDetailsPage extends StatelessWidget {
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1, color: Colors.black12))),
+                          onEditingComplete: () {
+                            diaryProvider
+                                .updateBodyAction(reactionArea.text.toString());
+                          },
+                          onChanged: (text) {
+                            debugPrint(text);
+                          },
                         ),
                         const SizedBox(
                           height: 6,
@@ -118,6 +125,13 @@ class WriteDetailsPage extends StatelessWidget {
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1, color: Colors.black12))),
+                          onEditingComplete: () {
+                            diaryProvider
+                                .updateAction(actionArea.text.toString());
+                          },
+                          onChanged: (text) {
+                            debugPrint(text);
+                          },
                         ),
                         const SizedBox(
                           height: 8,
@@ -126,8 +140,8 @@ class WriteDetailsPage extends StatelessWidget {
                             onTapHandler: () async {
                               diaryProvider
                                   .updateEmotion(writeProvder.selectedEmotion);
-                              diaryProvider.updateBodyAction(reactionArea.text);
                               diaryProvider.updateAction(actionArea.text);
+                              diaryProvider.updateBodyAction(reactionArea.text);
 
                               reactionArea.dispose();
                               actionArea.dispose();
@@ -138,7 +152,12 @@ class WriteDetailsPage extends StatelessWidget {
 
                               if (!context.mounted) return;
 
-                              await Navigator.pushNamed(context, "home");
+                              dynamic response =
+                                  await diaryProvider.fetchPostDiary(email!);
+
+                              if (context.mounted && response != null) {
+                                Navigator.pushNamed(context, "home");
+                              }
                             },
                             label: "기록하기")
                       ]))

@@ -24,7 +24,7 @@ class LoginProvider with ChangeNotifier {
   login() async {
     try {
       const String url =
-          "https://port-0-ogam-diary-server-3wh3o2blrgaaav5.sel5.cloudtype.app/api/v1";
+          "https://port-0-ogam-diary-server-o0ynn2alrlkabzp.sel5.cloudtype.app/api/v1";
 
       final request = Uri.parse("$url/user/login");
       final response = await http.post(request,

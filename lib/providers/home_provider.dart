@@ -24,9 +24,9 @@ class HomeProvider with ChangeNotifier {
   }
 
   Future<dynamic> getDiaryList(DateTime selectedDay) async {
-    const String API_URL =
-        "https://port-0-ogam-diary-server-3wh3o2blrgaaav5.sel5.cloudtype.app/api/v1";
-    final request = Uri.parse("$API_URL/diary/write");
+    const String apiUrl =
+        "https://port-0-ogam-diary-server-o0ynn2alrlkabzp.sel5.cloudtype.app/api/v1";
+    final request = Uri.parse("$apiUrl/diary/write");
 
     final response = await http.post(request);
     return jsonDecode(response.body);
