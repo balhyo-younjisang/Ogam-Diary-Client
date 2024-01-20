@@ -99,9 +99,6 @@ class WriteDetailsPage extends StatelessWidget {
                             diaryProvider
                                 .updateBodyAction(reactionArea.text.toString());
                           },
-                          onChanged: (text) {
-                            debugPrint(text);
-                          },
                         ),
                         const SizedBox(
                           height: 6,
@@ -129,9 +126,6 @@ class WriteDetailsPage extends StatelessWidget {
                             diaryProvider
                                 .updateAction(actionArea.text.toString());
                           },
-                          onChanged: (text) {
-                            debugPrint(text);
-                          },
                         ),
                         const SizedBox(
                           height: 8,
@@ -152,10 +146,9 @@ class WriteDetailsPage extends StatelessWidget {
 
                               if (!context.mounted) return;
 
-                              dynamic response =
-                                  await diaryProvider.fetchPostDiary(email!);
+                              await diaryProvider.fetchPostDiary(email!);
 
-                              if (context.mounted && response != null) {
+                              if (context.mounted) {
                                 Navigator.pushNamed(context, "home");
                               }
                             },

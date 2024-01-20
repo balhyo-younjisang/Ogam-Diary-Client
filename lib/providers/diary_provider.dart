@@ -51,13 +51,6 @@ class DiaryProvider with ChangeNotifier {
 
   Future<Diary?> fetchPostDiary(String email) async {
     try {
-      debugPrint(_action);
-      debugPrint(_bodyAction);
-      debugPrint(_emotion);
-      debugPrint(_situation);
-      debugPrint(_think);
-      debugPrint(_writedDate.toString());
-      debugPrint(email);
       const String url =
           "https://port-0-ogam-diary-server-o0ynn2alrlkabzp.sel5.cloudtype.app/api/v1";
 
@@ -71,13 +64,14 @@ class DiaryProvider with ChangeNotifier {
         "emotion": _emotion,
         "reaction": _action,
         "action": _bodyAction,
-        "date": _writedDate
+        "date": _writedDate.toString()
       });
       final jsonData = jsonDecode(response.body);
       debugPrint(jsonData);
 
       return jsonData;
     } catch (e) {
+      debugPrint(e.toString());
       return null;
     }
   }

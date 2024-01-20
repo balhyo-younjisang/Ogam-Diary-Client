@@ -100,6 +100,7 @@ class WritePage extends StatelessWidget {
                             onTapHandler: () {
                               diaryProvider.updateThink(thinkArea.text);
                               diaryProvider.updateSituation(situationArea.text);
+                              diaryProvider.updateDate(args.focusedDay);
 
                               thinkArea.dispose();
                               situationArea.dispose();

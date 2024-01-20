@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class HomeProvider with ChangeNotifier {
   DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
+  DateTime? _selectedDay = DateTime.now();
   List<Diary>? _diaryList;
 
   DateTime get focusedDay => _focusedDay;
