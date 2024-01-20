@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:ogam_diary/models/diary.dart';
 import 'package:ogam_diary/utils/diary_argument.dart';
 import 'package:ogam_diary/providers/home_provider.dart';
 import 'package:ogam_diary/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   static CalendarFormat format = CalendarFormat.twoWeeks;
+  List<Diary> diaryList = [];
+
+  @override
+  void initState() async {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      HomeProvider homeProvider = Provider.of<HomeProvider>(context);
+      diaryList = await homeProvider.getDiaryList(homeProvider.focusedDay);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +41,13 @@ class HomePage extends StatelessWidget {
           selectedDayPredicate: (day) {
             return isSameDay(homeProvider.selectedDay, day);
           },
-          onDaySelected: (selectedDay, focusedDay) {
+          onDaySelected: (selectedDay, focusedDay) async {
             homeProvider.updateFocusedDay(focusedDay);
             homeProvider.updateSelectedDay(selectedDay);
-            homeProvider.getDiaryList(selectedDay);
+            final list = await homeProvider.getDiaryList(selectedDay);
+            setState(() {
+              diaryList = list;
+            });
           },
           onPageChanged: (focusedDay) {
             homeProvider.updateFocusedDay(focusedDay);
@@ -57,15 +77,15 @@ class HomePage extends StatelessWidget {
             child: SizedBox(
                 height: 300,
                 child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.all(8),
-                  itemCount: homeProvider.diaryList?.length ?? 0,
+                  scrollDirection: Axis.vertical,
+                  padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+                  itemCount: diaryList.length,
                   itemBuilder: (BuildContext context, int idx) {
                     return Container(
                       height: 50,
                       color: Colors.amber,
                       child: Center(
-                        child: Text('${homeProvider.diaryList?[idx]}'),
+                        child: Text(diaryList[idx].situation),
                       ),
                     );
                   },
